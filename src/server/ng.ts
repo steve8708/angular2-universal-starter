@@ -6,7 +6,8 @@ import {
   SERVER_LOCATION_PROVIDERS,
   selectorResolver,
   selectorRegExpFactory,
-  renderToStringWithPreboot
+  renderToStringWithPreboot,
+  NODE_HTTP_PROVIDERS
 } from 'angular2-universal-preview';
 
 import { App } from '../app/app';
@@ -31,6 +32,7 @@ export function renderComponent(html, component, providers, prebootOptions) {
 const PROVIDERS = [
   ROUTER_PROVIDERS,
   SERVER_LOCATION_PROVIDERS,
+  NODE_HTTP_PROVIDERS,
   provide(APP_BASE_HREF, { useValue: '/' }),
 ];
 
@@ -40,6 +42,8 @@ const router = Router();
  * Angular2 application
  */
 router.get('/*', (req: Request, res: Response, next: Function) => {
+  console.log('\n\n - - GET - - ', req.url);
+
   return Promise.resolve()
     .then(() => {
       if (HAS_SS) {
@@ -56,6 +60,7 @@ router.get('/*', (req: Request, res: Response, next: Function) => {
       const scripts = HAS_WW ? WORKER_SCRIPTS : BROWSER_SCRIPTS;
       const content = rawContent.replace('</body>', scripts + '</body>');
 
+      console.log('SENDING');
       return res.send(content);
     })
     .catch(error => next(error));

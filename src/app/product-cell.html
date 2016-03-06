@@ -1,0 +1,39 @@
+<a
+  class="product-cell-wrapper"
+  [class.small]="small"
+  (click)="onClick()">
+  <div
+    class="product-image-container">
+    <img
+      class="product-image"
+      [class.blur]="showLists && expandLists"
+      src="{{product.image.sizes.Large.url}}">
+    <div class="image-overlay"></div>
+  </div>
+  <div class="deal-text serif">
+    {{product.promotionalDeal && product.promotionalDeal.title}}
+  </div>
+  <p class="product-name">
+    {{product.brandedName}}
+  </p>
+
+  <div class="bottom-row">
+    <p
+      *ngIf="product.salePriceLabel"
+      class="product-price">
+      {{product.salePriceLabel}}
+    </p>
+    <p
+      [class.struckout]="product.salePriceLabel"
+      class="product-price">
+      {{product.priceLabel}}
+    </p>
+
+    <!--<ion-icon
+      (click)="clickFavorite($event)"
+      class="favorite-button"
+      name="heart"
+      [isActive]="product.hasFavorite">
+    </ion-icon>-->
+  </div>
+</a>

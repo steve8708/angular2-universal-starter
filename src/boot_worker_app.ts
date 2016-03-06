@@ -10,12 +10,14 @@ import {
   WORKER_APP_APPLICATION,
   WORKER_APP_ROUTER
 } from 'angular2/platform/worker_app';
+import { HTTP_PROVIDERS } from 'angular2/http';
 import { APP_BASE_HREF, Router } from 'angular2/router';
 import { App } from './app/app';
 
 platform(WORKER_APP_PLATFORM).asyncApplication(() => Promise.resolve([
   WORKER_APP_APPLICATION,
   WORKER_APP_ROUTER,
+  HTTP_PROVIDERS,
   provide(APP_BASE_HREF, { useValue: '/' }),
 ]))
 .then((appRef: ApplicationRef) => {
