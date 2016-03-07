@@ -1,8 +1,6 @@
 import { Component, ViewEncapsulation } from 'angular2/core';
 import { RouteConfig, RouterOutlet, AsyncRoute } from 'angular2/router';
-import { Home } from './home';
 import { Header } from './header/header';
-import { ProductPage } from './product-page/product-page';
 
 declare var require: any;
 
@@ -20,8 +18,25 @@ declare var require: any;
 // TODO: separate server app with all async routes (?)
 // or regex text replace in webpack (?)
 @RouteConfig([
-  { path: '/browse',    name: 'Home',    component: Home,   useAsDefault: true },
-  { path: '/p/:id',   name: 'Product', component: ProductPage },
+  new AsyncRoute({
+    path: '/p/:id',
+    name: 'Product',
+    loader: () => new Promise((resolve) => {
+      require.ensure([], () => {
+        resolve(require('./product-page/product-page').ProductPage);
+      });
+    })
+  }),
+  new AsyncRoute({
+    path: '/browse',
+    name: 'Home',
+    loader: () => new Promise((resolve) => {
+      require.ensure([], () => {
+        resolve(require('./home').Home);
+      });
+    }),
+    useAsDefault: true
+  }),
 ])
 export class App {
 

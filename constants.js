@@ -34,5 +34,5 @@ exports.PREBOOT = {
   replay:  'rerender',
   buffer:  true,
   debug:   true,
-  uglify:  false,
+  uglify:  true,
 };

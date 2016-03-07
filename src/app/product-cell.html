@@ -1,7 +1,6 @@
 <a
   class="product-cell-wrapper"
-  [class.small]="small"
-  (click)="onClick()">
+  [routerLink]="['Product', { id: product.id }]">
   <div
     class="product-image-container">
     <img
@@ -28,12 +27,5 @@
       class="product-price">
       {{product.priceLabel}}
     </p>
-
-    <!--<ion-icon
-      (click)="clickFavorite($event)"
-      class="favorite-button"
-      name="heart"
-      [isActive]="product.hasFavorite">
-    </ion-icon>-->
   </div>
 </a>

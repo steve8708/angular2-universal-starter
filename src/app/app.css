@@ -1,0 +1,12 @@
+html {
+  font-family: /* 'AvenirNext-Medium', */ 'Helvetica Neue', 'Helvetica', 'Arial', sans-serif;
+}
+
+body,
+html {
+  background-color: #eee;
+}
+
+* {
+  box-sizing: border-box;
+}

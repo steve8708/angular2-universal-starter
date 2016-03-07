@@ -1,15 +1,25 @@
+<div *ngIf="guidedSearches && guidedSearches.length" class="guided-searches-container">
+  <a
+    class="guided-search-chip"
+    *ngFor="#chip of guidedSearches"
+    [routerLink]="['Home', { fts: chip.text }]">
+    {{chip.text}}
+  </a>
+</div>
+
 <div class="products-container" *ngIf="products && products.length">
   <product-cell
     *ngFor="#product of products"
     [product]="product">
   </product-cell>
+
+  <div class="load-more-button-container">
+    <a *ngIf="!loading" class="load-more-button" (click)="paginate()">
+      Load More
+    </a>
+  </div>
 </div>
 
-<div>
-  <button id="check-preboot" (click)="onCheckPreboot()">Check "Preboot"</button>
-  <span id="message-preboot" *ngIf="messagePreboot">{{ messagePreboot }}</span>
-</div>
-<div>
-  <button id="check-lazyloading" (click)="onCheckLazyLoading()">Check "Lazy Loading"</button>
-  <span id="message-lazyloading" *ngIf="messageLazyLoading">{{ messageLazyLoading }}</span>
+<div class="spinner-container" *ngIf="loading">
+  <spinner></spinner>
 </div>

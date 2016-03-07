@@ -2,6 +2,7 @@ const webpack   = require('webpack');
 const fs        = require('fs');
 const path      = require('path');
 const constants = require('./constants');
+const _         = require('lodash');
 
 const DefinePlugin       = webpack.DefinePlugin;
 const DllPlugin          = webpack.DllPlugin;
@@ -30,6 +31,8 @@ const NODE_MODULES = fs.readdirSync(ROOT_DIR + '/node_modules').filter(function(
   return name != '.bin';
 });
 
+const DEV = _.includes(['development', undefined], process.env.NODE_ENV);
+
 const STATS_OPTIONS = {
   colors: {
     level: 2,
@@ -53,8 +56,8 @@ const WATCH_OPTIONS = {
 };
 
 const DEV_OPTIONS = {
-  contentBase: false, 
-  queit: false, 
+  contentBase: false,
+  queit: false,
   noInfo: false,
   stats: STATS_OPTIONS
 };
@@ -74,11 +77,16 @@ const LOADERS = [{
     /node_modules/
   ]
 }, {
+  // TODO: minify html
   test: /\.html$/,
-  loader: 'raw'
+  loader: `html?-minimize`
 }, {
   test: /\.css$/,
   loaders: ['raw', 'postcss']
+}, {
+  // Images and fonts
+  test: /\.(jpg|jpeg|gif|png|woff|woff2|eot|ttf|svg)($|\?)/,
+  loader: 'url?limit=1000'
 }, {
   test: /\.json$/,
   loader: 'json'
@@ -90,13 +98,22 @@ const POSTCSS = function() {
   ]
 }
 
+const UGLIFY_PLUGIN = new webpack.optimize.UglifyJsPlugin({
+  compress: {
+    warnings: false
+  },
+  // FIXME: getting an error when mangle is turned on.
+  // instead of debugging, i just turned off for now....- ac
+  mangle: false
+});
+
 const DEFINE_CONSTANTS_PLUGIN = new DefinePlugin((function stringifyConstants() {
   const stringifiedConstants = {};
-  
+
   Object.keys(constants).forEach(function(constantName) {
-    stringifiedConstants[constantName] = JSON.stringify(constants[constantName]);    
+    stringifiedConstants[constantName] = JSON.stringify(constants[constantName]);
   });
-  
+
   return stringifiedConstants;
 })());
 
@@ -108,6 +125,7 @@ const VENDOR_DLL_REFERENCE_PLUGIN = new DllReferencePlugin({
   }
 });
 
+// TODO: use commons plugin instead
 const VENDOR_CONFIG = {
   target: 'web',
   entry: {
@@ -132,7 +150,7 @@ const VENDOR_CONFIG = {
       name: VENDOR_NAME,
       path: VENDOR_DLL_MANIFEST_PATH
     })
-  ]
+  ].concat(DEV ? [] : [UGLIFY_PLUGIN]),
 };
 
 const BROWSER_CONFIG = {
@@ -149,7 +167,7 @@ const BROWSER_CONFIG = {
   },
   plugins: [
     VENDOR_DLL_REFERENCE_PLUGIN
-  ],
+  ].concat(DEV ? [] : [UGLIFY_PLUGIN]),
   resolve: {
     extensions: ['', '.ts', '.js']
   },
@@ -167,14 +185,14 @@ const WORKER_CONFIG = {
     ]
   },
   output: {
-    path: PUBLIC_DIR, 
+    path: PUBLIC_DIR,
     filename: '[name].js',
     chunkFilename: '[id].' + WORKER_NAME + '.js',
   },
   plugins: [
     VENDOR_DLL_REFERENCE_PLUGIN,
     DEFINE_CONSTANTS_PLUGIN,
-  ],
+  ].concat(DEV ? [] : [UGLIFY_PLUGIN]),
   resolve: {
     extensions: ['', '.ts', '.js']
   },
@@ -200,7 +218,7 @@ const WORKER_APP_CONFIG = {
     return [
       VENDOR_DLL_REFERENCE_PLUGIN,
       DEFINE_CONSTANTS_PLUGIN,
-    ];
+    ].concat(DEV ? [] : [UGLIFY_PLUGIN]);
   } ,
   resolve: {
     extensions: ['', '.ts', '.js']
@@ -227,7 +245,7 @@ const SERVER_CONFIG = {
   },
   plugins: [
     DEFINE_CONSTANTS_PLUGIN
-  ],
+  ].concat(DEV ? [] : [UGLIFY_PLUGIN]),
   node: {
     __dirname:  true,
     __filename: true
@@ -238,7 +256,7 @@ const SERVER_CONFIG = {
   resolve: {
     extensions: ['', '.ts', '.js']
   },
-  module: { 
+  module: {
     loaders: LOADERS
   },
   postcss: POSTCSS

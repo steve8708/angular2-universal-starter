@@ -1,3 +1,44 @@
+:host {
+  background-color: #eee;
+  display: block;
+}
+
+.guided-searches-container {
+  background: white;
+  height: 45px;
+  line-height: 40px;
+  white-space: nowrap;
+  overflow: auto;
+  padding: 0 5px;
+}
+
+.guided-search-chip {
+  display: inline-block;
+  margin-left: 5px;
+  text-decoration: none;
+  padding: 0 15px;
+  height: 27px;
+  line-height: 27px;
+  font-size: 12px;
+  color: #333;
+  text-transform: capitalize;
+  background-color: #f4dcdc;
+  /*background-color: #001f3d;
+  color: white;*/
+  border-radius: 20px;
+}
+
+.spinner-container {
+  padding: 100px;
+}
+
 .products-container {
   text-align: center;
+  padding: 15px;
+  font-size: 0;
+}
+
+.load-more-button {
+  display: block;
+  margin: auto;
 }

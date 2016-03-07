@@ -1,0 +1,58 @@
+.spinner-container {
+  padding: 100px;
+}
+
+.related-products {
+  background-color: #eee;
+  text-align: center;
+  padding: 10px 5px;
+  font-size: 0;
+}
+
+.slides {
+  white-space: nowrap;
+  overflow: auto;
+  text-align: center;
+  height: 300px;
+  background: white;
+  position: relative;
+}
+
+h1 {
+  margin: 0;
+}
+
+.slide {
+  display: inline-block;
+  height: 300px;
+  min-width: 200px;
+  max-width: 300px;
+  padding: 20px;
+  line-height: 260px;
+  background: white;
+  position: relative;
+}
+
+.image {
+  max-height: 100%;
+  max-width: 100%;
+  vertical-align: middle;
+}
+
+.slides::before,
+.slide::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  background-color: rgba(0, 0, 0, 0.03);
+}
+
+.product-info {
+  padding: 20px;
+  color: #333;
+  font-size: 13px;
+  background: white;
+}

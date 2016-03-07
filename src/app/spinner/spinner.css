@@ -1,0 +1,57 @@
+:host {
+  text-align: center;
+  display: block;
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.spinner {
+  display: inline-block;
+  margin: auto;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  border: 2px solid #777;
+  border-right: 2px solid rgba(0, 0, 0, 0.1);
+  border-bottom: 2px solid rgba(0, 0, 0, 0.1);
+  border-left: 2px solid rgba(0, 0, 0, 0.1);
+  animation: spin 1s ease infinite;
+}
+
+.spinner.absolute {
+  position: absolute;
+}
+
+.spinner.fixed {
+  position: fixed;
+}
+
+.spinner.relative {
+  position: relative;
+}
+
+.spinner.static {
+  transform: none;
+  position: static;
+}
+
+.spinner.static.center {
+  margin-left: auto !important;
+}
+
+.spinner.inline {
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.spinner.fill {
+  background-color: white;
+  box-shadow: 0 0 0 5px white, 0 0 10px 1px rgba(black, 0.3);
+}

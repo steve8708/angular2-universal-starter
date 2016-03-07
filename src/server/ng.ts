@@ -1,5 +1,5 @@
 import { Router, Request, Response } from 'express';
-import { provide } from 'angular2/core';
+import { provide, enableProdMode } from 'angular2/core';
 import { PlatformLocation, APP_BASE_HREF, ROUTER_PROVIDERS } from 'angular2/router';
 import {
   REQUEST_URL,
@@ -11,6 +11,9 @@ import {
 } from 'angular2-universal-preview';
 
 import { App } from '../app/app';
+import * as _ from 'lodash';
+
+const apiCache = require('apicache').options({ debug: true }).middleware;
 
 function reduceScripts(content, src) {
   return `${content}<script type="text/javascript" src="${src}"></script>`;
@@ -41,8 +44,7 @@ const router = Router();
 /**
  * Angular2 application
  */
-router.get('/*', (req: Request, res: Response, next: Function) => {
-  console.log('\n\n - - GET - - ', req.url);
+router.get('/*', /* apiCache('1 hour'), */ (req: Request, res: Response, next: Function) => {
 
   return Promise.resolve()
     .then(() => {
@@ -59,9 +61,9 @@ router.get('/*', (req: Request, res: Response, next: Function) => {
     .then((rawContent) => {
       const scripts = HAS_WW ? WORKER_SCRIPTS : BROWSER_SCRIPTS;
       const content = rawContent.replace('</body>', scripts + '</body>');
+      const compressedContent = content.replace(/\s+/g, ' ')
 
-      console.log('SENDING');
-      return res.send(content);
+      return res.send(compressedContent);
     })
     .catch(error => next(error));
 });

@@ -1,6 +1,7 @@
 require('reflect-metadata');
 require('zone.js/dist/zone-microtask');
 require('zone.js/dist/long-stack-trace-zone');
+const _ = require('lodash');
 
 const path = require('path');
 const webpack = require('webpack');
@@ -40,7 +41,7 @@ function addDevClientScript(config) {
       config.entry[key] = [DEV_CLIENT_SRC].concat(config.entry[key])
     });
   } else {
-    config.entry = [DEV_CLIENT_SRC].concat(config.entry);    
+    config.entry = [DEV_CLIENT_SRC].concat(config.entry);
   }
 }
 
@@ -62,43 +63,47 @@ function recompileApp(content) {
   new Function(
     'module', 'exports', 'require', 'process', '__filename',     '__dirname',     content
   )( module_,  exports_,  require,   process,   SERVER_FILENAME,  SERVER_DIRNAME);
-  
-  return module_.exports.app; 
+
+  return module_.exports.app;
 }
 
-function runDevServer() {  
+function runDevServer() {
   var app;
-  
+
   const compiler = Object.create(webpack(configsList), { outputPath: { value: PUBLIC_DIR }});
   const server = new WebpackDevServer(compiler, DEV_OPTIONS);
-  
+
   compiler.plugin('done', function onCompilationDone() {
     app = recompileApp(server.middleware.fileSystem.readFileSync(SERVER_FILENAME, 'utf8'));
   });
-  
-  server.use('/', function proxyApp(req, res, next) {  
+
+  function getFile(path) {
+    return server.middleware.fileSystem.readFileSync(path, 'utf8');
+  }
+
+  server.use('/', function proxyApp(req, res, next) {
     const send_ = res.send;
-    
+
     res.send = function send(content) {
       if (res.statusCode >= 400) {
         const tag = ['body', 'head', 'html'].find(function(tag) { return !!~content.indexOf('</' + tag + '>') });
-        
+
         if (tag) {
           content = content.replace('</' + tag + '>', DEV_INDEX_SCRIPT + '$&');
         } else {
           content += DEV_INDEX_SCRIPT;
         }
       }
-      
+
       return send_.call(this, content);
     };
-      
+
     return app(req, res, next);
   });
 
   server.listen(PORT, HOST);
 }
-  
+
 webpack(VENDOR_CONFIG, function(error, stats) {
   if (error) {
     throw error;
@@ -106,12 +111,3 @@ webpack(VENDOR_CONFIG, function(error, stats) {
 
   runDevServer();
 });
-
-
-// Shut up enableProdMode() message
-// TODO: Think about another way to do it
-const log = console.log;
-console.log = function(message) {
-  if (typeof message === 'string' && message.indexOf('Angular 2 is running') === 0) return;
-  return log.apply(this, arguments);
-} 

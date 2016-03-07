@@ -4,7 +4,7 @@ import 'reflect-metadata';
 import 'zone.js/dist/zone-microtask';
 import 'zone.js/dist/long-stack-trace-zone';
 
-import { platform, provide, ApplicationRef, ComponentRef, Injector } from 'angular2/core';
+import { platform, provide, ApplicationRef, ComponentRef, Injector, enableProdMode } from 'angular2/core';
 import {
   WORKER_APP_PLATFORM,
   WORKER_APP_APPLICATION,
@@ -12,7 +12,10 @@ import {
 } from 'angular2/platform/worker_app';
 import { HTTP_PROVIDERS } from 'angular2/http';
 import { APP_BASE_HREF, Router } from 'angular2/router';
-import { App } from './app/app';
+import { App } from './app/lazy-app';
+
+// TODO: only if prod config
+enableProdMode();
 
 platform(WORKER_APP_PLATFORM).asyncApplication(() => Promise.resolve([
   WORKER_APP_APPLICATION,

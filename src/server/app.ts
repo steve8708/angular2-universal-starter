@@ -2,11 +2,32 @@ import * as serveStatic from 'serve-static';
 import * as express from 'express';
 import { Request, Response } from 'express';
 import { router as ngRouter } from './ng';
+import { provide, enableProdMode } from 'angular2/core';
+import * as _ from 'lodash';
+
+const morgan = require('morgan');
+
+if (_.includes(['qa', 'production'], process.env.NODE_ENV)) {
+  // TODO: causes issues when running dev server
+  // enableProdMode();
+}
+
+const cache = require('express-redis-cache')({
+  // TODO: configs
+  host: 'localhost',
+  port: 6379,
+});
 
 const app = express();
 
+app.use(require('response-time')());
+app.use(morgan('combined'));
+app.use(require('compression')());
+
 app.use('/', serveStatic(PUBLIC_DIR));
-app.use('/', ngRouter);
+
+// TODO: production only
+app.use('/', cache.route({ expire: 60 }), ngRouter);
 
 /**
  * 404 Not Found

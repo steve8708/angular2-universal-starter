@@ -1,0 +1,60 @@
+<div class="spinner-container" *ngIf="loading">
+  <spinner></spinner>
+</div>
+
+<div *ngIf="product">
+  <div class="column width-50">
+    <div class="slides">
+      <div class="slide" *ngFor="#image of images">
+        <img class="image" src="{{image.sizes.XLarge.url}}">
+      </div>
+    </div>
+  </div>
+  <div class="column width-50">
+    <div class="product-info">
+      <div class="price serif">
+        <h1>
+          {{product.priceLabel}}
+        </h1>
+        <p *ngIf="product.promotionalDeal">
+          {{product.promotionalDeal.title}}
+        </p>
+      </div>
+      <div class="buttons">
+        <button
+          *ngIf="product.checkoutEnabled"
+          block
+          (click)="addToCart()">
+          {{addToBagText}}
+        </button>
+        <a
+          button
+          *ngIf="!product.checkoutEnabled"
+          block
+          dark
+          (click)="goToRetailer($event)"
+          target="_blank">
+          {{buyNowText}}
+        </a>
+        <!--<button block dark outline (click)="toggleFavorite()">
+          <ion-icon name="heart" [isActive]="product.hasFavorite"></ion-icon>
+          {{product.favoriteCount}}
+        </button>-->
+      </div>
+      <div class="description">
+        <h2>
+          {{productDetailTitleText}}
+        </h2>
+        <p [innerHtml]="product.description"></p>
+      </div>
+    </div>
+  </div>
+</div>
+<div *ngIf="product" class="related-products">
+  <h2 class="related-products-title serif">
+    {{relatedProductsTitle}}
+  </h2>
+
+  <product-cell *ngFor="#product of relatedProducts" [product]="product">
+  </product-cell>
+</div>

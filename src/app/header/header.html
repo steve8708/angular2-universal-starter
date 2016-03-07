@@ -1,0 +1,23 @@
+<div class="server-client-flag" [class.client-loaded]="clientLoaded">
+  {{clientLoaded ? 'client' : 'server'}}
+</div>
+
+<a class="hamburger-menu-button">
+  <img class="hamburger-icon" src="./shopstyle-hamburger.svg">
+</a>
+
+<a class="logo-wrapper" [routerLink]="['Home']">
+  <img class="logo" src="./shopstyle-logo-black.png">
+</a>
+<div class="search-bar">
+  <form (submit)="search(searchBarText)" action="/home">
+  <img class="search-icon" src="./ios-search.svg">
+    <input
+      [(ngModel)]="searchBarText"
+      placeholder="Search thousands of brands and stores..."
+      type="search"
+      name="fts"
+      class="search-input">
+  </form>
+</div>
+
