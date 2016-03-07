@@ -24,9 +24,9 @@
 .search-icon {
   position: absolute;
   height: 20px;
-  top: 9px;
+  top: 12px;
   opacity: 0.5;
-  left: 9px;
+  left: 10px;
   pointer-events: none;
 }
 
@@ -43,9 +43,9 @@
   width: 100%;
   font-size: 13px;
   outline: 0;
-  line-height: 40px;
-  padding: 0 15px 0 34px;
+  padding: 12px 15px 12px 34px;
   box-sizing: border-box;
+  appearance: none;
 }
 
 .server-client-flag {

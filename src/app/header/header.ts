@@ -16,10 +16,8 @@ export class Header {
   clientLoaded = !SERVER;
   searchBarText = '';
 
-  constructor(private router: Router, private location: Location) {
-    location.subscribe(() => {
-      // this.searchBarText = params.get('fts') || '';
-    });
+  constructor(private router: Router) {
+    // TODO: keep search text in bar
   }
 
   search(text = this.searchBarText) {

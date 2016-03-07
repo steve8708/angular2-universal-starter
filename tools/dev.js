@@ -55,6 +55,7 @@ if (HAS_WW) {
   configsList.push(BROWSER_CONFIG);
 }
 
+// TODO: flush redis cache here
 function recompileApp(content) {
   const exports_ = {};
   const module_ = { exports:  exports_ };

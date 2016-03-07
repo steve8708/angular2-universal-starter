@@ -11,8 +11,11 @@ declare var require: any;
 declare var zone;
 
 const SERVER = typeof self === 'undefined' && typeof window === 'undefined';
-const FIRST_LIMIT = 150;
-const LIMIT = 150;
+
+const INFINITE_SCROLL = false;
+const FIRST_LIMIT = 100;
+// Subsequent loads are crazy slow
+const LIMIT = 50;
 
 @Component({
   selector: 'home-page',
@@ -33,7 +36,9 @@ export class Home implements OnActivate {
   activatePromise = new Promise(resolve => {
     this.activateResolve = resolve;
   });
-  page = 0;
+  page: number;
+  LIMIT = LIMIT;
+  fts: string;
 
   // TODO: pagination with URLs by keeping track of offset
   constructor(
@@ -41,14 +46,16 @@ export class Home implements OnActivate {
     private ngZone: NgZone,
     private params: RouteParams
   ) {
-    this.getProducts();
+    this.page = parseInt(this.params.get('offset')) / LIMIT || 0
+    this.fts = params.get('fts') || 'dresses';
+    this.getProducts(this.page);
   }
 
-  // @HostListener('window:scroll')
-  // @Throttle(1000)
-  // onWindowScroll() {
-  //   this.paginate();
-  // }
+  @HostListener(INFINITE_SCROLL ? 'window:scroll' : 'dummyEvent')
+  @Throttle(1000)
+  throttledPaginate() {
+    this.paginate();
+  }
 
   paginate() {
     this.getProducts(this.page + 1);
@@ -90,7 +97,7 @@ export class Home implements OnActivate {
         const json = res.json();
         const products = json.products;
 
-        if (page) {
+        if (page && INFINITE_SCROLL) {
           this.products.push(...products);
         } else {
           this.products = products;

@@ -7,19 +7,22 @@
   </a>
 </div>
 
-<div class="products-container" *ngIf="products && products.length">
+<div class="products-container">
   <product-cell
     *ngFor="#product of products"
     [product]="product">
   </product-cell>
 
-  <div class="load-more-button-container">
-    <a *ngIf="!loading" class="load-more-button" (click)="paginate()">
+  <div *ngIf="!loading" class="load-more-button-container">
+    <!--<a class="load-more-button" (click)="paginate()">
+      Load More
+    </a>-->
+    <a [routerLink]="['Home', { fts: fts, offset: (page + 1) * LIMIT }]" class="load-more-button">
       Load More
     </a>
   </div>
-</div>
 
-<div class="spinner-container" *ngIf="loading">
-  <spinner></spinner>
+  <div class="spinner-container" *ngIf="loading">
+    <spinner></spinner>
+  </div>
 </div>

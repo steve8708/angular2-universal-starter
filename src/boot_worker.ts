@@ -13,8 +13,17 @@ import {
   WORKER_RENDER_ROUTER
 } from 'angular2/platform/worker_render';
 
+const fastclick = require('fastclick');
+fastclick.attach(document.body);
+
+const CLIENT_RENDER = true;
+if (!CLIENT_RENDER) {
+  throw new Error('Aborting rendering for testing');
+}
+
 // TODO: only if prod config
 enableProdMode();
+console.log('client loaded');
 
 const workerScriptUrl = URL.createObjectURL(new Blob([`
   var importScripts_ = this.importScripts;
@@ -53,3 +62,4 @@ worker.addEventListener('message', function onAppReady(event) {
     setTimeout(() => document.dispatchEvent(new Event('BootstrapComplete')));
   }
 }, false);
+

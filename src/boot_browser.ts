@@ -8,7 +8,7 @@ import { platform, ComponentRef, Injector } from 'angular2/core';
 import { BROWSER_PROVIDERS, BROWSER_APP_PROVIDERS, } from 'angular2/platform/browser';
 import { ROUTER_PROVIDERS, Router } from 'angular2/router';
 import { HTTP_PROVIDERS } from 'angular2/http';
-import { App } from './app/app';
+import { App } from './app/lazy-app';
 
 platform(BROWSER_PROVIDERS).application(BROWSER_APP_PROVIDERS).bootstrap(App, [
   ROUTER_PROVIDERS,

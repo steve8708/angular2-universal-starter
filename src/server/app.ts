@@ -7,6 +7,9 @@ import * as _ from 'lodash';
 
 const morgan = require('morgan');
 
+// TODO: env variable override and env based config default
+const CACHE = true;
+
 if (_.includes(['qa', 'production'], process.env.NODE_ENV)) {
   // TODO: causes issues when running dev server
   // enableProdMode();
@@ -26,8 +29,11 @@ app.use(require('compression')());
 
 app.use('/', serveStatic(PUBLIC_DIR));
 
-// TODO: production only
-app.use('/', cache.route({ expire: 60 }), ngRouter);
+if (CACHE) {
+  app.use('/', cache.route({ expire: 60 * 60 * 24 * 7 }), ngRouter);
+} else {
+  app.use('/', ngRouter);
+}
 
 /**
  * 404 Not Found

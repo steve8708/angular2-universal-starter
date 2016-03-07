@@ -2,11 +2,14 @@ html {
   font-family: /* 'AvenirNext-Medium', */ 'Helvetica Neue', 'Helvetica', 'Arial', sans-serif;
 }
 
-body,
-html {
+body {
   background-color: #eee;
 }
 
 * {
   box-sizing: border-box;
+}
+
+a {
+  text-decoration: none;
 }

@@ -1,6 +1,7 @@
 :host {
   background-color: #eee;
   display: block;
+  padding-bottom: 50px;
 }
 
 .guided-searches-container {
@@ -8,7 +9,8 @@
   height: 45px;
   line-height: 40px;
   white-space: nowrap;
-  overflow: auto;
+  overflow: scroll;
+  -webkit-overflow-scrolling: touch;
   padding: 0 5px;
 }
 
@@ -22,14 +24,19 @@
   font-size: 12px;
   color: #333;
   text-transform: capitalize;
-  background-color: #f4dcdc;
+  background-color: #f1ecef;
   /*background-color: #001f3d;
   color: white;*/
   border-radius: 20px;
 }
 
 .spinner-container {
-  padding: 100px;
+  padding-top: 50px;
+  padding-bottom: 100px;
+}
+
+.spinner-container:first-child {
+  padding-top: 100px;
 }
 
 .products-container {
@@ -38,7 +45,23 @@
   font-size: 0;
 }
 
+@media (max-width: 700px) {
+  .products-container {
+    padding: 5px 0;
+  }
+}
+
 .load-more-button {
+  cursor: pointer;
   display: block;
-  margin: auto;
+  font-size: 14px;
+  margin: 30px auto 0 auto;
+  width: 170px;
+  height: 50px;
+  color: white;
+  background-color: #0083ed;
+  border-radius: 3px;
+  line-height: 48px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
 }

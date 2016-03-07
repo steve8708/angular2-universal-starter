@@ -16,6 +16,7 @@ import { App } from './app/lazy-app';
 
 // TODO: only if prod config
 enableProdMode();
+console.log('client worker loaded');
 
 platform(WORKER_APP_PLATFORM).asyncApplication(() => Promise.resolve([
   WORKER_APP_APPLICATION,
@@ -37,3 +38,4 @@ platform(WORKER_APP_PLATFORM).asyncApplication(() => Promise.resolve([
     postMessage('APP_READY', undefined);
   });
 });
+

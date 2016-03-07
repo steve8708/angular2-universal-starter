@@ -86,7 +86,7 @@ const LOADERS = [{
 }, {
   // Images and fonts
   test: /\.(jpg|jpeg|gif|png|woff|woff2|eot|ttf|svg)($|\?)/,
-  loader: 'url?limit=1000'
+  loader: 'url?limit=10000'
 }, {
   test: /\.json$/,
   loader: 'json'

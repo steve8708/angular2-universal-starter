@@ -1,6 +1,6 @@
 import { Http } from 'angular2/http';
 import { Component, NgZone } from 'angular2/core';
-import { RouteParams, OnActivate } from 'angular2/router';
+import { RouteParams, OnActivate, ROUTER_DIRECTIVES } from 'angular2/router';
 import { ProductCell } from './../product-cell';
 import { Spinner } from './../spinner/spinner';
 
@@ -11,7 +11,7 @@ const SERVER = typeof self === 'undefined' && typeof window === 'undefined';
   selector: 'product-page',
   template: require('./product-page.html'),
   styles: [ require('./product-page.css') ],
-  directives: [ ProductCell, Spinner ],
+  directives: [ ProductCell, Spinner, ROUTER_DIRECTIVES ],
 })
 
 export class ProductPage implements OnActivate {
@@ -24,6 +24,26 @@ export class ProductPage implements OnActivate {
   activatePromise = new Promise(resolve => {
     this.activateResolve = resolve;
   });
+
+  guidedSearches = [
+    { text: 'Women' },
+    { text: 'Men' },
+    { text: 'Kids' },
+    { text: 'Home' },
+    { text: 'Bags' },
+    { text: 'Shoes' },
+    { text: 'Bridal' },
+    { text: 'Denim' },
+    { text: 'Accessories' },
+    { text: 'Activewear' },
+    { text: 'Outerwear' },
+    { text: 'Swimwear' },
+    { text: 'Jackets' },
+    { text: 'Pants' },
+    { text: 'Petites' },
+    { text: 'Plus Sizes' },
+    { text: 'Shorts' },
+  ];
 
   constructor(
     private routeParams: RouteParams,
