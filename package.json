@@ -45,7 +45,7 @@
     "npm": ">= 3"
   },
   "dependencies": {
-    "angular2": "2.0.0-beta.7",
+    "angular2": "2.0.0-beta.8",
     "angular2-universal-preview": "0.55.3",
     "apicache": "0.0.12",
     "compression": "1.6.1",
