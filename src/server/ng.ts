@@ -9,6 +9,7 @@ import {
   renderToStringWithPreboot,
   NODE_HTTP_PROVIDERS
 } from 'angular2-universal-preview';
+// import { BASE_URL } from 'angular2/http';
 
 import { App } from '../app/app';
 import * as _ from 'lodash';

@@ -49,17 +49,12 @@
 }
 
 .server-client-flag {
-  /*position: fixed;*/
   position: absolute;
   display: block;
   border-radius: 100%;
   top: 15px;
   right: 19px;
-  /*height: 10px;
-  width: 10px;*/
-  /*opacity: 0.7;*/
   color: lightpink;
-  z-index: 2;
   font-size: 12px;
 }
 

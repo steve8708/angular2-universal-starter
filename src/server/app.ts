@@ -7,10 +7,12 @@ import * as _ from 'lodash';
 
 const morgan = require('morgan');
 
-// TODO: env variable override and env based config default
-const CACHE = true;
+const DEV = _.includes(['qa', 'production'], process.env.NODE_ENV);
 
-if (_.includes(['qa', 'production'], process.env.NODE_ENV)) {
+// TODO: env variable override and env based config default
+const CACHE = !DEV;
+
+if (!DEV) {
   // TODO: causes issues when running dev server
   // enableProdMode();
 }

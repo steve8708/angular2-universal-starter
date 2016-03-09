@@ -60,7 +60,7 @@ export class ProductPage implements OnActivate {
     this.loading = true;
     this.productObservable = this
       .http
-      .get(`http://www.shopstyleqa.com/api/v2/site/product/${productId}?pid=shopstyle&limit=50&view=angular`);
+      .get(`https://www.shopstyleqa.com/api/v2/site/product/${productId}?pid=shopstyle&limit=50&view=angular`);
 
     this.productObservable.subscribe((res) => {
       this.ngZone.run(() => {

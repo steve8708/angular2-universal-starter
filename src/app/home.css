@@ -2,6 +2,26 @@
   background-color: #eee;
   display: block;
   padding-bottom: 50px;
+  text-align: center;
+}
+
+.overlay {
+  position: fixed;
+  pointer-events: none;
+  position: fixed;
+  background-color: rgba(0, 0, 0, 0.3);
+  opacity: 0;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  transform: translateZ(0);
+  transition: opacity 0.2s ease-in-out;
+}
+
+.overlay.show {
+  opacity: 1;
+  pointer-events: auto;
 }
 
 .guided-searches-container {
@@ -51,6 +71,21 @@
   }
 }
 
+.refine-button {
+  text-align: center;
+  cursor: pointer;
+  display: inline-block;
+  font-size: 14px;
+  margin: 15px auto 0 auto;
+  color: white;
+  background-color: #0083ed;
+  border-radius: 2px;
+  padding: 10px 30px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+/* TODO: button styling */
 .load-more-button {
   cursor: pointer;
   display: block;
@@ -60,7 +95,7 @@
   height: 50px;
   color: white;
   background-color: #0083ed;
-  border-radius: 3px;
+  border-radius: 2px;
   line-height: 48px;
   letter-spacing: 1px;
   text-transform: uppercase;

@@ -43,6 +43,11 @@
   display: inline-block;
   vertical-align: middle;
   transition: all 0.2s;
+  transform: tranxlateZ(0);
+}
+
+.product-image.fade {
+  opacity: 0;
 }
 
 .favorite-button {

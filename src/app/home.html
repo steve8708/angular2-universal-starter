@@ -1,4 +1,4 @@
-<div *ngIf="guidedSearches && guidedSearches.length" class="guided-searches-container">
+<div class="guided-searches-container">
   <a
     class="guided-search-chip"
     *ngFor="#chip of guidedSearches"
@@ -6,6 +6,10 @@
     {{chip.text}}
   </a>
 </div>
+
+<a class="refine-button" (click)="showFilters = !showFilters">
+  Refine
+</a>
 
 <div class="products-container">
   <product-cell
@@ -17,7 +21,9 @@
     <!--<a class="load-more-button" (click)="paginate()">
       Load More
     </a>-->
-    <a [routerLink]="['Home', { fts: fts, offset: (page + 1) * LIMIT }]" class="load-more-button">
+    <a
+      class="load-more-button"
+      [routerLink]="['Home', { fts: fts, offset: (page + 1) * LIMIT }]">
       Load More
     </a>
   </div>
@@ -26,3 +32,7 @@
     <spinner></spinner>
   </div>
 </div>
+
+<!-- TODO: global overlay -->
+<div (click)="showFilters = false" [class.show]="showFilters" class="overlay"></div>
+<div #searchFilters></div>

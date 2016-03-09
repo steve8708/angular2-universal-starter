@@ -3,6 +3,7 @@ import 'es6-promise';
 import 'reflect-metadata';
 import 'zone.js/dist/zone-microtask';
 import 'zone.js/dist/long-stack-trace-zone';
+import * as _ from 'lodash';
 
 import { platform, provide, enableProdMode } from 'angular2/core';
 import {
@@ -14,7 +15,7 @@ import {
 } from 'angular2/platform/worker_render';
 
 const fastclick = require('fastclick');
-fastclick.attach(document.body);
+// fastclick.attach(document.body);
 
 const CLIENT_RENDER = true;
 if (!CLIENT_RENDER) {
@@ -63,3 +64,12 @@ worker.addEventListener('message', function onAppReady(event) {
   }
 }, false);
 
+// TODO: throttle
+addEventListener('scroll', _.throttle((event: Event) => {
+  worker.postMessage({
+    name: 'window.scroll',
+    windowHeight: window.innerHeight,
+    bodyHeight: document.body.clientHeight,
+    bodyScrollTop: document.body.scrollTop
+  });
+}, 100));

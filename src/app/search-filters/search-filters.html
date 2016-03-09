@@ -1,0 +1,41 @@
+<div class="base-page">
+  <a (click)="showOverlay = true" class="item">
+    Category
+  </a>
+  <a (click)="showOverlay = true" class="item">
+    Brand
+  </a>
+  <a (click)="showOverlay = true" class="item">
+    Price
+  </a>
+  <a (click)="showOverlay = true" class="item">
+    Color
+  </a>
+  <a (click)="showOverlay = true" class="item">
+    Size
+  </a>
+  <a (click)="showOverlay = true" class="item">
+    Sales & Deals
+  </a>
+</div>
+
+<div (click)="showOverlay = false" [class.show]="showOverlay" class="overlay-page">
+  <a (click)="showOverlay = true" class="item">
+    J. Crew
+  </a>
+  <a (click)="showOverlay = true" class="item">
+    Cole Haan
+  </a>
+  <a (click)="showOverlay = true" class="item">
+    Hugo Boss
+  </a>
+  <a (click)="showOverlay = true" class="item">
+    Marc Jacobs
+  </a>
+  <a (click)="showOverlay = true" class="item">
+    Ralph Lauren
+  </a>
+  <a (click)="showOverlay = true" class="item">
+    Stuff
+  </a>
+</div>

@@ -11,7 +11,7 @@
   <spinner></spinner>
 </div>
 
-<div *ngIf="product">
+<div>
   <div class="column width-50">
     <div class="slides">
       <div class="slide" *ngFor="#image of images">
@@ -19,7 +19,7 @@
       </div>
     </div>
   </div>
-  <div class="column width-50">
+  <div *ngIf="product" class="column width-50">
     <div class="product-info">
       <div class="price serif">
         <h1>
@@ -60,10 +60,6 @@
   </div>
 </div>
 <div *ngIf="product" class="related-products">
-  <h2 class="related-products-title serif">
-    {{relatedProductsTitle}}
-  </h2>
-
   <product-cell *ngFor="#product of relatedProducts" [product]="product">
   </product-cell>
 </div>

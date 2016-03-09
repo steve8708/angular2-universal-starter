@@ -1,0 +1,46 @@
+:host {
+  right: 0;
+  position: fixed;
+  width: 320px;
+  max-width: 80%;
+  transform: translateZ(0) translateX(calc(100% + 30px));
+  background: white;
+  height: 100%;
+  top: 0;
+  bottom: 0;
+  transition: transform 0.2s ease-in-out;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+  text-align: left;
+}
+
+:host.show {
+  transform: translateZ(0);
+}
+
+.item {
+  display: block;
+  padding: 20px;
+  border-bottom: 1px solid #eee;
+}
+
+.overlay-page {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 2;
+  opacity: 0;
+  background: white;
+  transform: translateZ(0) translateY(50px);
+  transition-property: transform, opacity;
+  transition-duration: 0.2s;
+  transition-timing-function: ease-out;
+  pointer-events: none;
+}
+
+.overlay-page.show {
+  transform: translateZ(0);
+  opacity: 1;
+  pointer-events: auto;
+}
