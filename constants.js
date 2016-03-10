@@ -8,7 +8,7 @@ exports.PUBLIC_DIR  = path.resolve(exports.DIST_DIR, 'public');
 exports.PRIVATE_DIR = path.resolve(exports.DIST_DIR, 'private');
 exports.SERVER_DIR  = path.resolve(exports.SRC_DIR,  'server');
 
-exports.HOST = process.env.HOST || 'localhost';
+exports.HOST = process.env.HOST || '0.0.0.0';
 exports.PORT = +process.env.PORT || 3009;
 
 exports.HAS_SS = 'NG2_SS' in process.env ? process.env.NG2_SS === 'true' : true;

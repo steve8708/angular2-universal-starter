@@ -1,6 +1,7 @@
 import { Router, Request, Response } from 'express';
 import { provide, enableProdMode } from 'angular2/core';
 import { PlatformLocation, APP_BASE_HREF, ROUTER_PROVIDERS } from 'angular2/router';
+import { BASE_URL } from 'angular2-universal-preview/dist/server/src/http/node_http';
 import {
   REQUEST_URL,
   SERVER_LOCATION_PROVIDERS,
@@ -9,7 +10,6 @@ import {
   renderToStringWithPreboot,
   NODE_HTTP_PROVIDERS
 } from 'angular2-universal-preview';
-// import { BASE_URL } from 'angular2/http';
 
 import { App } from '../app/app';
 import * as _ from 'lodash';
@@ -51,7 +51,8 @@ router.get('/*', /* apiCache('1 hour'), */ (req: Request, res: Response, next: F
     .then(() => {
       if (HAS_SS) {
         const REQUEST_PROVIDERS = [
-          provide(REQUEST_URL,  { useValue: req.originalUrl })
+          provide(REQUEST_URL, { useValue: req.originalUrl }),
+          provide(BASE_URL, {useValue: req.baseUrl})
         ];
 
         return renderComponent(HTML_FILE, App, [PROVIDERS, REQUEST_PROVIDERS], PREBOOT);

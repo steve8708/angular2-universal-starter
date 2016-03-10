@@ -42,7 +42,7 @@ npm install
 # run the production server
 npm start
 ```
-Go to [http://localhost:3000](http://localhost:3000) in your browser.
+Go to [http://localhost:3009/browse](http://localhost:3009/browse) in your browser.
 
 You may want to stop or restart the production server:
 ```bash
@@ -62,7 +62,7 @@ npm stop
 npm run dev
 ```
 
-The development server will watch for any changes, make rebuilds and reload a browser. All built code will be kept in 
+The development server will watch for any changes, make rebuilds and reload a browser. All built code will be kept in
 memory, so `dist` folder will not be generated (**all** means code for **both** **client** and **server** sides).
 
 ##Turning server side rendering and web workers on/off
