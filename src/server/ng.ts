@@ -21,7 +21,7 @@ function reduceScripts(content, src) {
 }
 
 function getBaseUrlFromRequest(request: Request): string {
-  return `${request.protocol}//${request.host}/`;
+  return `${request.protocol}://${request.host}/`;
 }
 
 const WORKER_SCRIPTS  = [`${VENDOR_NAME}.js`, `${WORKER_NAME}.js`].reduce(reduceScripts, '');
@@ -54,7 +54,6 @@ router.get('/*', /* apiCache('1 hour'), */ (req: Request, res: Response, next: F
   return Promise.resolve()
     .then(() => {
       if (HAS_SS) {
-        console.log("........", getBaseUrlFromRequest(req));
         const REQUEST_PROVIDERS = [
           provide(REQUEST_URL, { useValue: req.originalUrl }),
           provide(BASE_URL, {useValue: getBaseUrlFromRequest(req)})
