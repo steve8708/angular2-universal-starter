@@ -42,7 +42,7 @@ npm install
 # run the production server
 npm start
 ```
-Go to [http://localhost:3009/search](http://localhost:3009/search) in your browser.
+Go to [http://localhost:3009/browse](http://localhost:3009/browse) in your browser.
 
 You may want to stop or restart the production server:
 ```bash
