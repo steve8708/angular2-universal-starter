@@ -20,6 +20,10 @@ function reduceScripts(content, src) {
   return `${content}<script type="text/javascript" src="${src}"></script>`;
 }
 
+function getBaseUrlFromRequest(request: Request): string {
+  return `${request.protocol}://${request.host}/`;
+}
+
 const WORKER_SCRIPTS  = [`${VENDOR_NAME}.js`, `${WORKER_NAME}.js`].reduce(reduceScripts, '');
 const BROWSER_SCRIPTS = [`${VENDOR_NAME}.js`, `${BROWSER_NAME}.js`].reduce(reduceScripts, '');
 
@@ -52,7 +56,7 @@ router.get('/*', /* apiCache('1 hour'), */ (req: Request, res: Response, next: F
       if (HAS_SS) {
         const REQUEST_PROVIDERS = [
           provide(REQUEST_URL, { useValue: req.originalUrl }),
-          provide(BASE_URL, {useValue: req.baseUrl})
+          provide(BASE_URL, {useValue: getBaseUrlFromRequest(req)})
         ];
 
         return renderComponent(HTML_FILE, App, [PROVIDERS, REQUEST_PROVIDERS], PREBOOT);

@@ -40,7 +40,7 @@ export class LazyLoadComponent {
       }
     }
     /* tslint:enable */
-
-    this.dynamicComponentLoader.loadIntoLocation(DynamicComponent, options.elementRef, options.location);
+    // TODO: this breaks client js
+    // this.dynamicComponentLoader.loadIntoLocation(DynamicComponent, options.elementRef, options.location);
   }
 }
